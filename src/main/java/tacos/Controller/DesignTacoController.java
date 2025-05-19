@@ -11,10 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.validation.Valid;
 import tacos.domain.Ingredient;
 import tacos.domain.Taco;
 
@@ -55,10 +57,14 @@ public class DesignTacoController {
 			.collect(Collectors.toList());
 	}
 
-	// 타코 디자인 저장
+	// 타코 유효성 검사
 	@PostMapping
-	public String processDesign(Taco design) {
-		log.info("Processing Design: " + design);
+	public String processDesign(@Valid Taco design, Errors errors) {
+		if(errors.hasErrors()) {
+			return "design";
+		}
+
+		// log.info("Processing Design: " + design);
 		return "redirect:/orders/current";
 	}
 }
