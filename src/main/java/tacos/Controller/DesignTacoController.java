@@ -7,9 +7,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import tacos.domain.Ingredient;
@@ -18,6 +21,8 @@ import tacos.domain.Taco;
 @Controller
 @RequestMapping("/design")
 public class DesignTacoController {
+	private static final Logger log = LoggerFactory.getLogger(DesignTacoController.class);
+
 	@GetMapping
 	public String showDesignForm(Model model) {
 		List<Ingredient> ingredients = Arrays.asList(
@@ -48,5 +53,12 @@ public class DesignTacoController {
 			.stream()
 			.filter(x -> x.getType().equals(type)) 	// 특정 종류에 해당하는 것만 반환
 			.collect(Collectors.toList());
+	}
+
+	// 타코 디자인 저장
+	@PostMapping
+	public String processDesign(Taco design) {
+		log.info("Processing Design: " + design);
+		return "redirect:/orders/current";
 	}
 }
