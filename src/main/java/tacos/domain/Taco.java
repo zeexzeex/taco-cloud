@@ -1,7 +1,8 @@
 package tacos.domain;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -16,5 +17,5 @@ public class Taco {
 	private String name;
 
 	@Size(min=1, message="You must choose at least 1 ingredient")
-	private List<String> ingredients;
+	private List<Ingredient> ingredients;
 }

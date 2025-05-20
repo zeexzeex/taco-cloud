@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.validation.Valid;
 import tacos.data.IngredientRepository;
+import tacos.data.TacoRepository;
 import tacos.domain.Ingredient;
 import tacos.domain.Taco;
 
@@ -23,10 +24,12 @@ import tacos.domain.Taco;
 @RequestMapping("/design")
 public class DesignTacoController {
 	private final IngredientRepository ingredientRepository;
+	private TacoRepository tacoRepository;
 
 	@Autowired
-	public DesignTacoController(IngredientRepository ingredientRepository) {
+	public DesignTacoController(IngredientRepository ingredientRepository, TacoRepository tacoRepository) {
 		this.ingredientRepository = ingredientRepository;
+		this.tacoRepository = tacoRepository;
 	}
 
 	// DB에서 조회해서 가져오기
